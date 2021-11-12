@@ -6,7 +6,7 @@ function enviarUsuario(user){
     }
     const enviar = axios.post('https://mock-api.driven.com.br/api/v4/uol/participants', dado);
     enviar.then(tratarEnvio);
-    enviar.catch(ErroNoEnvio);
+    enviar.catch(ErroNoEnvioDoUsuario);
 }
 
 function tratarEnvio(resposta){
@@ -14,7 +14,7 @@ function tratarEnvio(resposta){
     console.log(resposta);
 }
 
-function ErroNoEnvio(resposta){
+function ErroNoEnvioDoUsuario(resposta){
     console.log("Erro no Envio:");
     console.log(resposta);
     usuario = prompt("Nome em uso. Entre com outro nome");
@@ -48,10 +48,7 @@ function carregarMensagens(){
             }
         }
         const ultimo = document.querySelector("main").lastChild;
-        console.log(ultimo);
         ultimo.scrollIntoView();
-        //const ultimo = resposta.data[resposta.data.length - 1];
-        //ultimo.scrollIntoView();
     }
 }
 
@@ -73,3 +70,39 @@ function ErroDeVerificação(resposta){
 }
 
 setInterval(verificarUsuario,5000);
+
+function enviarMensagem(){
+    destino = prompt("Qual o destinatario da mensagem");
+    const input = document.querySelector("input");
+    console.log(input.value);
+    const dado = {
+        from: usuario,
+        to: "Todos",
+        text: input.value,
+        type: "message" // ou "private_message" para o bônus
+    }
+    const mensagem = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages',dado)
+    mensagem.then(tratarEnvio);
+    mensagem.catch(errorEnvioMensagem);
+
+}
+
+function apagarInput(){
+    const input = document.querySelector("input");
+    if(input.value === "Escreva aqui"){
+        input.value = "";
+    }else if(input.value == ""){
+        input.value = "Escreva aqui";
+    }
+}
+
+function mensagemEnviadaOK(){
+    carregarMensagens();
+    const input = document.querySelector("input");
+    insut.value = "Escreva aqui"
+
+}
+
+function errorEnvioMensagem(){
+    //window.location.reload();
+}
