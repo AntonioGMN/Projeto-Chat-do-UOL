@@ -26,6 +26,7 @@ header ion-icon {
 
 main {
   margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 footer {
@@ -84,9 +85,6 @@ article div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-article div ion.icon {
 }
 
 .escondido {

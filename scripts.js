@@ -1,5 +1,3 @@
-let promessa = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages');
-
 let usuario = prompt("Qual seu nome?");
 
 function enviarUsuario(user){
@@ -26,6 +24,7 @@ function ErroNoEnvio(resposta){
 enviarUsuario(usuario);
 
 function carregarMensagens(){
+    let promessa = axios.get('https://mock-api.driven.com.br/api/v4/uol/messages');
     promessa.then(chat);
     function chat(resposta){
         //console.log(resposta);
@@ -43,11 +42,16 @@ function carregarMensagens(){
                 </p>`
             }
             if(resposta.data[i].type === "private_message"){
-                mensagens.innerHTML += `<p class="private_message">
+                mensagens.innerHTML += `<p class="mensage private_message">
                 ${resposta.data[i].time} ${resposta.data[i].from} reservadamente para ${resposta.data[i].to}: ${resposta.data[i].text}  
                 </p>`
             }
         }
+        const ultimo = document.querySelector("main").lastChild;
+        console.log(ultimo);
+        ultimo.scrollIntoView();
+        //const ultimo = resposta.data[resposta.data.length - 1];
+        //ultimo.scrollIntoView();
     }
 }
 
