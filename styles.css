@@ -116,25 +116,37 @@ footer input{
   border:none;
 }
 
-
-
 nav {
-  width: 80%;
+  width: 100%;
   height: 100%;
 
   display: flex;
-  flex-direction: column;
 
-  background: #ffffff;
+  background: rgba(0, 0, 0, 0.6);
+
   position: fixed;
   right: 0px;
   bottom: 0px;
-  padding: 20px;
+  z-index: 1;
 }
 
 nav h1 {
   margin: 0 auto;
   margin-bottom: 20px;
+}
+
+.fundo{
+  width: 25vw;
+  height: 100vh;
+}
+
+.sidebar{
+  width: 75vw;
+  height: 100vh;
+
+  display: flex;
+
+  background-color: #ffffff;
 }
 
 article {

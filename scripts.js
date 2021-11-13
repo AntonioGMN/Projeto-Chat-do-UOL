@@ -113,11 +113,12 @@ function apagarInput(){
     }
 }
 
+function retirarEscondido(){
+    const escondido = document.querySelector("nav");
+    escondido.classList.remove("escondido");
+}
 
-// function escreverInput(){
-//     const input = document.querySelector("input");
-//     if(input.value === ""){
-//         input.value = "Escreva aqui";
-//     }
-//     alert("toto")
-// }
+function addEscondido(selecionado){
+    const escondido = document.querySelector("nav");
+    escondido.classList.add("escondido");
+}

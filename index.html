@@ -15,44 +15,24 @@
 <body>
     <header>
         <img src="imagens/logo 1.png">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people" onclick="retirarEscondido()"></ion-icon>
     </header>
     <main class="mensagens"></main>
     <footer>
         <input type="text" name="input" value="Escreva aqui..." onkeydown=apagarInput()>
         <ion-icon name="paper-plane-outline" onclick=enviarMensagem()></ion-icon>
     </footer>
-    <nav class="escondido">
-        <h1>Escolha um contato <br> para enviar mensagem:</h1>
-          <article class="contato">
+    <nav class="escondido" >
+        <section class="fundo" onclick="addEscondido()"></section>
+        <section class="sidebar">
+            <h1>Escolha um contato para enviar mensagem:</h1>
+            <article class="contato">
             <ion-icon name="person-circle-outline"></ion-icon>
             <div>
                 <p>João</p>
                 <!-- <ion-icon name="checkmark"></ion-icon> -->
             </div>
-        </article>  
-        <article class="contato">
-            <ion-icon name="person-circle-outline"></ion-icon>
-            <div>
-                <p>João</p>
-                <ion-icon name="checkmark"></ion-icon>
-            </div>
-        </article>  
-        <h2>Escolha a visibilidade:</h2>
-        <article>
-            <ion-icon name="lock-open"></ion-icon>
-            <div>
-                <p>Público</p>
-                <ion-icon name="checkmark"></ion-icon>
-            </div>
-        </article> 
-        <article>
-            <ion-icon name="lock-closed"></ion-icon>
-            <div>
-                <p>Privado</p>
-                <ion-icon name="checkmark"></ion-icon>
-            </div>
-        </article> 
+        <section>  
     </nav>
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
