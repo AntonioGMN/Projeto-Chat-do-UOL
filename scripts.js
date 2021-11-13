@@ -1,4 +1,5 @@
 let usuario = prompt("Qual seu nome?");
+const input = document.querySelector("input");
 
 function enviarUsuario(user){
     const dado = {
@@ -33,17 +34,17 @@ function carregarMensagens(){
         for(let i=0; i < resposta.data.length; i++){
             if(resposta.data[i].type === "status"){
                 mensagens.innerHTML += `<p class="status">
-                ${resposta.data[i].time} ${resposta.data[i].from} ${resposta.data[i].text}
+                <span>(${resposta.data[i].time})</span> <strong>${resposta.data[i].from}</strong> ${resposta.data[i].text}
                 </p>`
             }
             if(resposta.data[i].type === "message"){
                 mensagens.innerHTML += `<p class="message">
-                ${resposta.data[i].time} ${resposta.data[i].from} para ${resposta.data[i].to}: ${resposta.data[i].text}  
+                <span>(${resposta.data[i].time})</span> <strong>${resposta.data[i].from}</strong> para <strong>${resposta.data[i].to}</strong>: ${resposta.data[i].text}  
                 </p>`
             }
             if(resposta.data[i].type === "private_message"){
                 mensagens.innerHTML += `<p class="mensage private_message">
-                ${resposta.data[i].time} ${resposta.data[i].from} reservadamente para ${resposta.data[i].to}: ${resposta.data[i].text}  
+                <span>(${resposta.data[i].time})</span> <strong>${resposta.data[i].from}</strong> reservadamente para <strong>${resposta.data[i].to}</strong>: ${resposta.data[i].text}  
                 </p>`
             }
         }
@@ -72,7 +73,7 @@ function ErroDeVerificação(resposta){
 setInterval(verificarUsuario,5000);
 
 function enviarMensagem(){
-    destino = prompt("Qual o destinatario da mensagem");
+    //destino = prompt("Qual o destinatario da mensagem");
     const input = document.querySelector("input");
     console.log(input.value);
     const dado = {
@@ -82,27 +83,41 @@ function enviarMensagem(){
         type: "message" // ou "private_message" para o bônus
     }
     const mensagem = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages',dado)
-    mensagem.then(tratarEnvio);
+    mensagem.then(mensagemEnviadaOK);
     mensagem.catch(errorEnvioMensagem);
-
 }
 
-function apagarInput(){
-    const input = document.querySelector("input");
-    if(input.value === "Escreva aqui"){
-        input.value = "";
-    }else if(input.value == ""){
-        input.value = "Escreva aqui";
-    }
-}
 
 function mensagemEnviadaOK(){
     carregarMensagens();
-    const input = document.querySelector("input");
-    insut.value = "Escreva aqui"
-
+    input.value = "Escreva aqui..."
+    
 }
 
 function errorEnvioMensagem(){
-    //window.location.reload();
+    window.location.reload();
 }
+
+input.addEventListener('keyup', function(e){
+     key = e.which || e.keyCode;
+    if (key == 13){ 
+        enviarMensagem();
+    }
+});
+
+function apagarInput(){
+    if(input.value == "Escreva aqui..."){
+        input.value = "";
+    }else if(input.value == ""){
+        input.value = "Escreva aqui...";
+    }
+}
+
+
+// function escreverInput(){
+//     const input = document.querySelector("input");
+//     if(input.value === ""){
+//         input.value = "Escreva aqui";
+//     }
+//     alert("toto")
+// }

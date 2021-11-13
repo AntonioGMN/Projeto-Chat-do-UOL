@@ -1,5 +1,6 @@
 body {
   background-color: #e5e5e5;
+  font-family: "Roboto", sans-serif;
 }
 
 header {
@@ -27,6 +28,54 @@ header ion-icon {
 main {
   margin-top: 100px;
   margin-bottom: 100px;
+
+
+  Weight:400;
+  Style:normal;
+  Size: 14px;
+  Line height: 16,41px;
+}
+
+main p {
+  padding: 10px;
+  margin-bottom: 2px;
+  border-radius: 2px;
+
+  Weight:400;
+  Style:normal;
+  Size: 14px;
+  
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.status {
+  background-color: #dcdcdc;
+}
+
+.message {
+  background-color: #ffffff;
+}
+
+.private_message {
+  background: #ffdede;
+}
+
+strong{
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+span{
+  color: gray;
 }
 
 footer {
@@ -54,6 +103,20 @@ img {
   width: 75px;
   height: 53px;
 }
+
+footer input{
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  color: #000000;
+  border:none;
+}
+
+
 
 nav {
   width: 80%;
@@ -91,20 +154,5 @@ article div {
   display: none;
 }
 
-main p {
-  padding: 10px;
-  margin-bottom: 2px;
-  border-radius: 2px;
-}
 
-.status {
-  background-color: #dcdcdc;
-}
 
-.message {
-  background-color: #ffffff;
-}
-
-.private_message {
-  background: #ffdede;
-}

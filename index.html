@@ -7,6 +7,10 @@
     <title>Chat do UOL</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -15,10 +19,8 @@
     </header>
     <main class="mensagens"></main>
     <footer>
-    
-            <input type="text" name="input" value="Escreva aqui" onclick=apagarInput()>
-            <ion-icon name="paper-plane-outline" onclick=enviarMensagem()></ion-icon>
-        
+        <input type="text" name="input" value="Escreva aqui..." onkeydown=apagarInput()>
+        <ion-icon name="paper-plane-outline" onclick=enviarMensagem()></ion-icon>
     </footer>
     <nav class="escondido">
         <h1>Escolha um contato <br> para enviar mensagem:</h1>
