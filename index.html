@@ -19,18 +19,33 @@
     </header>
     <main class="mensagens"></main>
     <footer>
-        <input type="text" name="input" value="Escreva aqui..." onkeydown=apagarInput()>
-        <ion-icon name="paper-plane-outline" onclick=enviarMensagem()></ion-icon>
+        <div>
+            <input type="text" name="input" value="Escreva aqui..." onkeydown=apagarInput()>
+            <span>asdfads</span>
+        </div>
+        <ion-icon data-identifier="send-message" name="paper-plane-outline" onclick=enviarMensagem()></ion-icon>
     </footer>
     <nav class="escondido" >
         <section class="fundo" onclick="addEscondido()"></section>
         <section class="sidebar">
             <h1>Escolha um contato para enviar mensagem:</h1>
-            <article class="contato">
-            <ion-icon name="person-circle-outline"></ion-icon>
-            <div>
-                <p>João</p>
-                <!-- <ion-icon name="checkmark"></ion-icon> -->
+            <div class="contatos"></div>
+            <h2>Escolha a visibilidade:</h2>
+            <div class="visibilidade">
+               <article onclick="escolherPrivacidade(this)">
+                   <div>
+                       <ion-icon name="lock-open"></ion-icon>
+                       <p>Publico</p>
+                    </div>
+                    <ion-icon class="marcado" name="checkmark-outline"></ion-icon>
+               </article>
+               <article onclick="escolherPrivacidade(this)" data-identifier="visibility">
+                    <div>
+                        <ion-icon  name="lock-open"></ion-icon>
+                        <p>Privado</p>
+                    </div>
+                    <ion-icon class="marcado" name="checkmark-outline"></ion-icon>
+                </article>
             </div>
         <section>  
     </nav>

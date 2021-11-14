@@ -1,5 +1,7 @@
 let usuario = prompt("Qual seu nome?");
-const input = document.querySelector("input");
+let input = document.querySelector("input");
+let contatoAtivo;
+let visibidadeAtiva;
 
 function enviarUsuario(user){
     const dado = {
@@ -11,8 +13,8 @@ function enviarUsuario(user){
 }
 
 function tratarEnvio(resposta){
-    console.log("Envio ok, resposta:");
-    console.log(resposta);
+    //console.log("Envio ok, resposta:");
+    //console.log(resposta);
 }
 
 function ErroNoEnvioDoUsuario(resposta){
@@ -75,13 +77,25 @@ setInterval(verificarUsuario,5000);
 function enviarMensagem(){
     //destino = prompt("Qual o destinatario da mensagem");
     const input = document.querySelector("input");
-    console.log(input.value);
-    const dado = {
-        from: usuario,
-        to: "Todos",
-        text: input.value,
-        type: "message" // ou "private_message" para o bônus
+    const destino = document.querySelector(".contatos .escolhido div p");
+    const privaciade = document.querySelector(".visibilidade .escolhido div p");
+    if(privaciade == "Publico"){
+        const dado = {
+            from: usuario,
+            to: destino,
+            text: input.value,
+            type:"message"
+        }
     }
+    if(privaciade == "Privado"){
+        const dado = {
+            from: usuario,
+            to: destino,
+            text: input.value,
+            type:  "private_message"
+        }
+    }
+    console.log(input.value);
     const mensagem = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages',dado)
     mensagem.then(mensagemEnviadaOK);
     mensagem.catch(errorEnvioMensagem);
@@ -121,4 +135,99 @@ function retirarEscondido(){
 function addEscondido(selecionado){
     const escondido = document.querySelector("nav");
     escondido.classList.add("escondido");
+}
+function carregarContatos(){
+    let contatos = axios.get('https://mock-api.driven.com.br/api/v4/uol/participants')
+    contatos.then(adicionarContatos);
+    contatos.catch(erroNoContato);
+
+    const nomecontatoAtivo = document.querySelector(".contatos .escolhido p");
+
+    function adicionarContatos(resposta){
+        const participantes = document.querySelector(".contatos");
+        if(nomecontatoAtivo != null && nomecontatoAtivo.innerHTML == "Todos"){
+            participantes.innerHTML = `
+            <article onclick="addEscolhido(this)" class="escolhido" data-identifier="participant">
+                <div>
+                    <ion-icon  name="people"></ion-icon>
+                    <p>Todos</p>
+                </div>
+                <ion-icon class="marcado" name="checkmark-outline"></ion-icon>
+            </article>`
+        }else{
+            participantes.innerHTML = `
+            <article onclick="addEscolhido(this) data-identifier="participant"">
+                <div>
+                    <ion-icon  name="people""></ion-icon>
+                    <p>Todos</p>
+                </div>
+                <ion-icon class="marcado" name="checkmark-outline"></ion-icon>
+            </article>`
+        }
+        
+        for(let i= 0; i< resposta.data.length; i++){
+            if(nomecontatoAtivo != null && nomecontatoAtivo.innerHTML == resposta.data[i].name){
+                participantes.innerHTML += `
+                <article onclick="addEscolhido(this)" class="escolhido" data-identifier="participant">
+                    <div>
+                        <ion-icon  name="people" onclick="retirarEscondido()"></ion-icon>
+                        <p>${resposta.data[i].name}</p>
+                    </div>
+                    <ion-icon class="marcado" name="checkmark-outline"></ion-icon>
+                </article>`;
+            }else{
+                participantes.innerHTML += `
+                <article onclick="addEscolhido(this)" data-identifier="participant">
+                    <div>
+                        <ion-icon  name="people" onclick="retirarEscondido()"></ion-icon>
+                        <p>${resposta.data[i].name}</p>
+                    </div>
+                    <ion-icon class="marcado" name="checkmark-outline"></ion-icon>
+                </article>`;
+            }
+        }
+    }
+}
+
+function erroNoContato(erro){
+    console.log("Erro em pegar contatos: " + erro);
+}
+
+carregarContatos();
+
+setInterval(carregarContatos,10000);
+
+function addEscolhido(selecionado){
+    contatoAtivo = document.querySelector(".contatos .escolhido");
+
+    if(contatoAtivo == null){
+        selecionado.classList.add("escolhido");
+    }else{
+        contatoAtivo.classList.remove("escolhido");
+        selecionado.classList.add("escolhido");
+    }
+    informarDestinatario();
+}
+
+
+function escolherPrivacidade(selecionado){
+    visibidadeAtiva = document.querySelector(".visibilidade .escolhido");
+    console.log(visibidadeAtiva);
+    if(visibidadeAtiva == null){
+        selecionado.classList.add("escolhido");
+    }else{
+        visibidadeAtiva.classList.remove("escolhido");
+        selecionado.classList.add("escolhido");
+    }
+    informarDestinatario();
+}
+
+function informarDestinatario(){
+    const nome = document.querySelector(".contatos .escolhido div p");
+    const tipo = document.querySelector(".visibilidade .escolhido div p");
+    if(nome != null && tipo != null){
+        const destino = document.querySelector("footer div span");
+        destino.innerHTML = `Enviando para ${nome.innerHTML} (${tipo.innerHTML})`;
+        console.log("destino: "+destino);
+    }
 }
