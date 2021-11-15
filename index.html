@@ -20,10 +20,10 @@
     <main class="mensagens"></main>
     <footer>
         <div>
-            <input type="text" name="input" value="Escreva aqui..." onkeydown=apagarInput()>
+            <input type="text" name="input" value="Escreva aqui..." onkeydown="apagarInput()">
             <span>asdfads</span>
         </div>
-        <ion-icon data-identifier="send-message" name="paper-plane-outline" onclick=enviarMensagem()></ion-icon>
+        <ion-icon data-identifier="send-message" name="paper-plane-outline" onclick="enviarMensagem()"></ion-icon>
     </footer>
     <nav class="escondido" >
         <section class="fundo" onclick="addEscondido()"></section>
@@ -41,7 +41,7 @@
                </article>
                <article onclick="escolherPrivacidade(this)" data-identifier="visibility">
                     <div>
-                        <ion-icon  name="lock-open"></ion-icon>
+                        <ion-icon name="lock-closed"></ion-icon>
                         <p>Privado</p>
                     </div>
                     <ion-icon class="marcado" name="checkmark-outline"></ion-icon>

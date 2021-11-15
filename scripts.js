@@ -13,8 +13,7 @@ function enviarUsuario(user){
 }
 
 function tratarEnvio(resposta){
-    //console.log("Envio ok, resposta:");
-    //console.log(resposta);
+    console.log("Envio ok, resposta:");
 }
 
 function ErroNoEnvioDoUsuario(resposta){
@@ -75,37 +74,43 @@ function ErroDeVerificação(resposta){
 setInterval(verificarUsuario,5000);
 
 function enviarMensagem(){
-    //destino = prompt("Qual o destinatario da mensagem");
     const input = document.querySelector("input");
     const destino = document.querySelector(".contatos .escolhido div p");
     const privaciade = document.querySelector(".visibilidade .escolhido div p");
-    if(privaciade == "Publico"){
-        const dado = {
+    let dado = {};
+    console.log(destino.innerHTML);
+    console.log(privaciade.innerHTML);
+    if(privaciade.innerHTML == "Publico" && destino != null){
+        dado = {
             from: usuario,
-            to: destino,
+            to: destino.innerHTML,
             text: input.value,
             type:"message"
         }
-    }
-    if(privaciade == "Privado"){
-        const dado = {
+    }else if(destino != null){
+        dado = {
             from: usuario,
-            to: destino,
+            to: destino.innerHTML,
             text: input.value,
-            type:  "private_message"
+            type: "private_message"
         }
     }
-    console.log(input.value);
+    if(destino == null){
+        alert("Por favor escolha para quem a mensagem será inviada");
+    }
+    if(privaciade == null){
+        alert("Por favor escolha se a mensagem é privada ou publica")
+    }
+    console.log(dado);
     const mensagem = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages',dado)
     mensagem.then(mensagemEnviadaOK);
-    mensagem.catch(errorEnvioMensagem);
+    mensagem.catch(errorEnvioMensagem);  
 }
 
 
 function mensagemEnviadaOK(){
     carregarMensagens();
-    input.value = "Escreva aqui..."
-    
+    input.value = "Escreva aqui..."   
 }
 
 function errorEnvioMensagem(){
@@ -156,7 +161,7 @@ function carregarContatos(){
             </article>`
         }else{
             participantes.innerHTML = `
-            <article onclick="addEscolhido(this) data-identifier="participant"">
+            <article onclick="addEscolhido(this)" data-identifier="participant"">
                 <div>
                     <ion-icon  name="people""></ion-icon>
                     <p>Todos</p>
@@ -228,6 +233,5 @@ function informarDestinatario(){
     if(nome != null && tipo != null){
         const destino = document.querySelector("footer div span");
         destino.innerHTML = `Enviando para ${nome.innerHTML} (${tipo.innerHTML})`;
-        console.log("destino: "+destino);
     }
 }
